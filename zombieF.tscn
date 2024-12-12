@@ -1,0 +1,87 @@
+[gd_scene load_steps=36 format=2]
+
+[ext_resource path="res://enemy.gd" type="Script" id=1]
+[ext_resource path="res://images/zombieF/Walk (1).png" type="Texture" id=2]
+[ext_resource path="res://images/zombieF/Walk (2).png" type="Texture" id=3]
+[ext_resource path="res://images/zombieF/Walk (3).png" type="Texture" id=4]
+[ext_resource path="res://images/zombieF/Walk (4).png" type="Texture" id=5]
+[ext_resource path="res://images/zombieF/Walk (5).png" type="Texture" id=6]
+[ext_resource path="res://images/zombieF/Walk (6).png" type="Texture" id=7]
+[ext_resource path="res://images/zombieF/Walk (7).png" type="Texture" id=8]
+[ext_resource path="res://images/zombieF/Walk (8).png" type="Texture" id=9]
+[ext_resource path="res://images/zombieF/Walk (9).png" type="Texture" id=10]
+[ext_resource path="res://images/zombieF/Walk (10).png" type="Texture" id=11]
+[ext_resource path="res://images/zombieF/Dead (1).png" type="Texture" id=12]
+[ext_resource path="res://images/zombieF/Dead (2).png" type="Texture" id=13]
+[ext_resource path="res://images/zombieF/Dead (3).png" type="Texture" id=14]
+[ext_resource path="res://images/zombieF/Dead (4).png" type="Texture" id=15]
+[ext_resource path="res://images/zombieF/Dead (5).png" type="Texture" id=16]
+[ext_resource path="res://images/zombieF/Dead (6).png" type="Texture" id=17]
+[ext_resource path="res://images/zombieF/Dead (7).png" type="Texture" id=18]
+[ext_resource path="res://images/zombieF/Dead (8).png" type="Texture" id=19]
+[ext_resource path="res://images/zombieF/Dead (9).png" type="Texture" id=20]
+[ext_resource path="res://images/zombieF/Dead (10).png" type="Texture" id=21]
+[ext_resource path="res://images/zombieF/Dead (11).png" type="Texture" id=22]
+[ext_resource path="res://images/zombieF/Dead (12).png" type="Texture" id=23]
+[ext_resource path="res://collision_die.gd" type="Script" id=24]
+[ext_resource path="res://images/zombieF/Attack (2).png" type="Texture" id=25]
+[ext_resource path="res://images/zombieF/Attack (1).png" type="Texture" id=26]
+[ext_resource path="res://images/zombieF/Attack (8).png" type="Texture" id=27]
+[ext_resource path="res://images/zombieF/Attack (3).png" type="Texture" id=28]
+[ext_resource path="res://images/zombieF/Attack (4).png" type="Texture" id=29]
+[ext_resource path="res://images/zombieF/Attack (5).png" type="Texture" id=30]
+[ext_resource path="res://images/zombieF/Attack (6).png" type="Texture" id=31]
+[ext_resource path="res://images/zombieF/Attack (7).png" type="Texture" id=32]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ) ],
+"loop": true,
+"name": "walking",
+"speed": 12.0
+}, {
+"frames": [ ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ), ExtResource( 21 ), ExtResource( 22 ), ExtResource( 23 ) ],
+"loop": false,
+"name": "dying",
+"speed": 8.0
+}, {
+"frames": [ ExtResource( 26 ), ExtResource( 25 ), ExtResource( 28 ), ExtResource( 29 ), ExtResource( 30 ), ExtResource( 31 ), ExtResource( 32 ), ExtResource( 27 ) ],
+"loop": true,
+"name": "attack",
+"speed": 9.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 9.1321, 10 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 121.185, 204.851 )
+
+[node name="zombieF" type="StaticBody2D"]
+position = Vector2( -1.3065, -1.21802 )
+scale = Vector2( 0.364818, 0.337031 )
+script = ExtResource( 1 )
+
+[node name="ZombieAS" type="AnimatedSprite" parent="."]
+position = Vector2( -4.29153e-06, 0 )
+frames = SubResource( 1 )
+animation = "walking"
+frame = 5
+
+[node name="CollisionDieZombie" type="CollisionShape2D" parent="."]
+position = Vector2( 14.9197, 50.7565 )
+scale = Vector2( -10.7353, 22.0152 )
+shape = SubResource( 2 )
+
+[node name="DieAreaZombie" type="Area2D" parent="."]
+position = Vector2( 21.0803, -10.9454 )
+script = ExtResource( 24 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionDieCharacter" type="CollisionShape2D" parent="DieAreaZombie"]
+position = Vector2( -18.0881, 33.1614 )
+shape = SubResource( 3 )
+
+[connection signal="body_entered" from="DieAreaZombie" to="DieAreaZombie" method="_on_DieAreaZombie_body_entered"]
